@@ -1,37 +1,57 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-export default function ProfileBar({ user, onEdit, onLogout }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+export default function ProfileSetup({ onComplete }) {
+  const [bio, setBio] = useState("");
+  const [image, setImage] = useState(null);
 
-  // close when clicking outside
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+  function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => setImage(reader.result);
+    reader.readAsDataURL(file);
+  }
+
+  function handleFinish() {
+    const profile = {
+      name: "Yogesh",
+      username: "yogi.ok2025",
+      bio,
+      profilePic: image
+    };
+
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+    onComplete(profile);
+  }
 
   return (
-    <div className="profile-bar" ref={ref}>
-      <img
-        src={user.photo || "https://i.pravatar.cc/150?img=12"}
-        alt="profile"
-        onClick={() => setOpen(o => !o)}
-      />
+    <div className="profile-overlay">
+      <div className="profile-modal">
+        <h2>Set up your profile</h2>
 
-      <div className={`dropdown ${open ? "open" : ""}`}>
-        <span className="username">{user.name}</span>
+        <label className="profile-upload">
+          {image ? (
+            <img src={image} alt="profile" />
+          ) : (
+            <span>+</span>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleImageUpload}
+          />
+        </label>
 
-        <button className="menu-item" onClick={onEdit}>
-          Edit Profile
-        </button>
+        <input
+          placeholder="Add a bio (optional)"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+        />
 
-        <button className="menu-item" onClick={onLogout}>
-          Logout
+        <button className="search-btn" onClick={handleFinish}>
+          Finish
         </button>
       </div>
     </div>

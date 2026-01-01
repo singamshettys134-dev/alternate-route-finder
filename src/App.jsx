@@ -18,22 +18,44 @@ export default function App() {
   }, []);
 
   if (page === "login")
-    return <Login goSignup={() => setPage("signup")} goHome={setUser} />;
+    return (
+      <Login
+        goSignup={() => setPage("signup")}
+        goHome={(u) => {
+          setUser(u);
+          setPage("home");
+        }}
+      />
+    );
 
   if (page === "signup")
-    return <Signup next={(u) => { setUser(u); setPage("profile"); }} />;
+    return (
+      <Signup
+        next={(u) => {
+          setUser(u);
+          setPage("profile");
+        }}
+      />
+    );
 
- if (page === "profile")
+  if (page === "profile")
+    return (
+      <ProfileSetup
+        user={user}
+        finish={(updatedUser) => {
+          setUser(updatedUser);
+          setPage("home");
+        }}
+      />
+    );
+
   return (
-    <ProfileSetup
+    <Home
       user={user}
-      finish={(updatedUser) => {
-        setUser(updatedUser); // 🔥 UPDATE STATE
-        setPage("home");
+      logout={() => {
+        setUser(null);
+        setPage("login");
       }}
     />
   );
-
-
-  return <Home user={user} logout={() => setPage("login")} />;
 }

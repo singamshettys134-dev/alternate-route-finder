@@ -1,69 +1,54 @@
 import { useState } from "react";
-import { saveUser } from "../utils/auth";
 
-export default function ProfileSetup({ user, finish }) {
-  const [preview, setPreview] = useState(null);
+export default function ProfileSetup({ onComplete }) {
+  const [bio, setBio] = useState("");
+  const [image, setImage] = useState(null);
 
-  const handleImage = (e) => {
+  function handleImageUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = () => setPreview(reader.result);
-    reader.readAsDataURL(file);
-  };
-
-  const completeProfile = () => {
-    const updatedUser = {
-      ...user,
-      profilePic: preview || null
+    reader.onloadend = () => {
+      setImage(reader.result);
     };
-    saveUser(updatedUser);
-    finish(updatedUser);
-  };
+    reader.readAsDataURL(file);
+  }
+
+  function handleFinish() {
+    const profile = {
+      name: "Yogesh",
+      username: "yogi.ok2025",
+      bio,
+      profilePic: image
+    };
+
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+    onComplete(profile);
+  }
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-card">
-        <h2>Set up your profile</h2>
+    <div className="card profile-setup">
+      <h2>Set up your profile</h2>
 
-        {/* PROFILE PIC PICKER */}
-        <div className="avatar-upload">
-          {preview ? (
-            <img src={preview} alt="profile" />
-          ) : (
-            <label
-              style={{
-                width: 96,
-                height: 96,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.25)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                fontSize: "2rem"
-              }}
-            >
-              +
-              <input
-                type="file"
-                accept="image/*"
-                hidden
-                onChange={handleImage}
-              />
-            </label>
-          )}
-        </div>
+      <label className="profile-pic-upload">
+        {image ? (
+          <img src={image} alt="profile" />
+        ) : (
+          <span>+</span>
+        )}
+        <input type="file" accept="image/*" hidden onChange={handleImageUpload} />
+      </label>
 
-        <p>{user.username}</p>
+      <input
+        placeholder="Add a bio (optional)"
+        value={bio}
+        onChange={(e) => setBio(e.target.value)}
+      />
 
-        <input placeholder="Add a bio (optional)" />
-
-        <button className="primary-btn" onClick={completeProfile}>
-          Finish
-        </button>
-      </div>
+      <button className="search-btn" onClick={handleFinish}>
+        Finish
+      </button>
     </div>
   );
 }
