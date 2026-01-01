@@ -1,0 +1,427 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= GLOBAL ================= */
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(10, 15, 30, 0.72), rgba(10, 15, 30, 0.72)),
+    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+button,
+select,
+input {
+  font-family: inherit;
+}
+
+/* ================= APP ================= */
+.app {
+  max-width: 1100px;
+  margin: auto;
+  padding: 60px 20px 100px;
+  position: relative;
+}
+
+/* ================= HEADINGS ================= */
+h1 {
+  text-align: center;
+  font-size: 2.9rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  text-align: center;
+  opacity: 0.85;
+  margin: 14px 0 44px;
+}
+
+/* ================= GLASS CARD ================= */
+.card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(22px);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255,255,255,0.2);
+}
+
+/* ================= SEARCH ================= */
+.search-card {
+  margin-top: 20px;
+}
+
+.search-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 160px;
+  gap: 18px;
+  align-items: center;
+}
+
+.search-bar select {
+  appearance: none;
+  padding: 15px 18px;
+  border-radius: 18px;
+  border: none;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.96);
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.search-bar select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.6);
+}
+
+.search-btn {
+  height: 100%;
+  border-radius: 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(34,197,94,0.45);
+}
+
+/* ================= RESULTS ================= */
+.results {
+  margin-top: 46px;
+  display: grid;
+  gap: 30px;
+}
+
+.result-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.28),
+    rgba(255,255,255,0.14)
+  );
+  backdrop-filter: blur(22px);
+  border-radius: 26px;
+  padding: 30px;
+  box-shadow:
+    0 40px 90px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.22);
+}
+
+.result-legs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.result-leg {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.95rem;
+}
+
+.result-badge {
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.result-route {
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.result-time {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.result-footer {
+  margin-top: 22px;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.35);
+  font-size: 1rem;
+}
+
+.result-footer strong {
+  font-size: 1.15rem;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= PROFILE BAR ================= */
+.profile-bar {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 100;
+}
+
+.profile-bar img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.85);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* ================= DROPDOWN ================= */
+.profile-bar .dropdown {
+  position: absolute;
+  top: 62px;
+  right: 0;
+  min-width: 190px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+}
+
+.profile-bar .dropdown p {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-bar .dropdown button {
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 10px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.profile-bar .dropdown button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(34,197,94,0.4);
+}
+
+/* ================= AUTH ================= */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 400px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(22px);
+  padding: 30px;
+  border-radius: 26px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.6);
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 14px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* ================= MODAL ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,15,30,0.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 400px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(22px);
+  border-radius: 26px;
+  padding: 30px;
+  box-shadow: 0 50px 120px rgba(0,0,0,0.7);
+}
+
+.modal-card h2 {
+  margin-bottom: 18px;
+}
+
+.modal-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  margin-bottom: 14px;
+}
+
+.avatar-upload {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.avatar-upload img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.9);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .search-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card,
+  .modal-card {
+    width: 92%;
+  }
+}
+/* ================= RESULT CARDS – ENHANCED (NO STRUCTURE CHANGE) ================= */
+
+.results {
+  margin-top: 30px;
+}
+
+/* Each alternate route card */
+.route {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 26px 28px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.route:not(:last-child) {
+  margin-bottom: 26px;
+}
+
+.route:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+
+/* Each leg (TRAIN row) */
+.leg {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
+.leg span:last-child {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* TRAIN badge */
+.badge.train {
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+}
+
+/* Divider */
+.route hr {
+  border: none;
+  height: 1px;
+  margin: 16px 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+}
+
+/* Total journey row */
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.total span {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+/* Mobile polish */
+@media (max-width: 768px) {
+  .route {
+    padding: 22px 20px;
+  }
+
+  .leg {
+    font-size: 0.95rem;
+  }
+}
