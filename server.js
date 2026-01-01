@@ -3,20 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const app = express();
 app.use(express.json());
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB error:", err));
+  .catch(() => console.log("Mongo error"));
 
-app.get("/", (req, res) => {
-  res.send("Server running");
-});
+app.get("/", (_, res) => res.send("Backend running"));
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(5000, () => console.log("Server running on 5000"));

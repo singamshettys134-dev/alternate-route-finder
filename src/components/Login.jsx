@@ -1,24 +1,25 @@
-import { getUser } from "../utils/auth";
-
-export default function Login({ goSignup, goHome }) {
-  const login = () => {
-    const user = getUser();
-    if (!user) {
-      alert("User not found. Please sign up.");
-      return;
-    }
-    goHome(user);
-  };
-
+export default function Login({ onLogin, goSignup }) {
   return (
     <div className="auth-wrapper">
-      <div className="auth-card">
+      <div className="auth-card card">
         <h2>Welcome Back</h2>
-        <input placeholder="Email or mobile number" />
+
+        <input placeholder="Email" />
         <input type="password" placeholder="Password" />
-        <button className="primary-btn" onClick={login}>Sign In</button>
-        <p className="link">Forgot password?</p>
-        <p className="link" onClick={goSignup}>New here? Create an account</p>
+
+        <button
+          className="search-btn"
+          onClick={() => onLogin({ email: "demo@mail.com" })}
+        >
+          Sign In
+        </button>
+
+        <div className="auth-links">
+          <span className="auth-link">Forgot password?</span>
+          <span className="auth-link primary" onClick={goSignup}>
+            Create account
+          </span>
+        </div>
       </div>
     </div>
   );

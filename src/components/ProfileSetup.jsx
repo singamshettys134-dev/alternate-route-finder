@@ -1,54 +1,28 @@
 import { useState } from "react";
 
-export default function ProfileSetup({ onComplete }) {
-  const [bio, setBio] = useState("");
-  const [image, setImage] = useState(null);
+export default function ProfileSetup({ user, onFinish }) {
+  const [avatar, setAvatar] = useState(null);
 
-  function handleImageUpload(e) {
+  function upload(e) {
     const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function handleFinish() {
-    const profile = {
-      name: "Yogesh",
-      username: "yogi.ok2025",
-      bio,
-      profilePic: image
-    };
-
-    localStorage.setItem("userProfile", JSON.stringify(profile));
-    onComplete(profile);
+    if (file) setAvatar(URL.createObjectURL(file));
   }
 
   return (
-    <div className="card profile-setup">
-      <h2>Set up your profile</h2>
+    <div className="auth-wrapper">
+      <div className="auth-card card profile-card">
+        <h2>Set up your profile</h2>
+        <p className="profile-sub">Add a profile photo to personalize your account</p>
 
-      <label className="profile-pic-upload">
-        {image ? (
-          <img src={image} alt="profile" />
-        ) : (
-          <span>+</span>
-        )}
-        <input type="file" accept="image/*" hidden onChange={handleImageUpload} />
-      </label>
+        <label className="avatar-upload">
+          {avatar ? <img src={avatar} alt="avatar" /> : <span>+</span>}
+          <input type="file" hidden onChange={upload} />
+        </label>
 
-      <input
-        placeholder="Add a bio (optional)"
-        value={bio}
-        onChange={(e) => setBio(e.target.value)}
-      />
-
-      <button className="search-btn" onClick={handleFinish}>
-        Finish
-      </button>
+        <button className="search-btn" onClick={() => onFinish({ ...user, avatar })}>
+          Finish
+        </button>
+      </div>
     </div>
   );
 }

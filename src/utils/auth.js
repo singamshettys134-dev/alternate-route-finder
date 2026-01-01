@@ -3,17 +3,9 @@ export const saveUser = (user) => {
 };
 
 export const getUser = () => {
-  const raw = localStorage.getItem("user");
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw);
-  } catch (e) {
-    console.error("Invalid user data in localStorage");
-    return null;
-  }
+  return JSON.parse(localStorage.getItem("user"));
 };
 
-export const logout = () => {
+export const clearUser = () => {
   localStorage.removeItem("user");
 };

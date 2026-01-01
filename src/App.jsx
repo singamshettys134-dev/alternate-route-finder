@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ProfileSetup from "./components/ProfileSetup";
 import Home from "./components/Home";
-import { getUser } from "./utils/auth";
+import { getUser, saveUser, clearUser } from "./utils/auth";
 
 export default function App() {
   const [page, setPage] = useState("login");
@@ -17,42 +17,50 @@ export default function App() {
     }
   }, []);
 
-  if (page === "login")
+  if (page === "login") {
     return (
       <Login
-        goSignup={() => setPage("signup")}
-        goHome={(u) => {
+        onLogin={(u) => {
+          saveUser(u);
           setUser(u);
           setPage("home");
         }}
+        goSignup={() => setPage("signup")}
       />
     );
+  }
 
-  if (page === "signup")
+  if (page === "signup") {
     return (
       <Signup
-        next={(u) => {
+        onSignup={(u) => {
+          saveUser(u);
           setUser(u);
           setPage("profile");
         }}
+        back={() => setPage("login")}
       />
     );
+  }
 
-  if (page === "profile")
+  if (page === "profile") {
     return (
       <ProfileSetup
         user={user}
-        finish={(updatedUser) => {
+        onFinish={(updatedUser) => {
+          saveUser(updatedUser);
           setUser(updatedUser);
           setPage("home");
         }}
       />
     );
+  }
 
   return (
     <Home
       user={user}
       logout={() => {
+        clearUser();
         setUser(null);
         setPage("login");
       }}

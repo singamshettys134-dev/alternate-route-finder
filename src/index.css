@@ -485,3 +485,253 @@ h1 {
   margin-bottom: 18px;
   font-size: 0.95rem;
 }
+/* AUTH PAGES LAYOUT FIX */
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 420px;
+  max-width: 90%;
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.auth-card .link {
+  margin-top: 12px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.auth-card .link:hover {
+  opacity: 1;
+}
+/* AUTH PRIMARY BUTTON – ENHANCED */
+
+.auth-card .search-btn {
+  width: 100%;
+  height: 48px;
+  margin-top: 10px;
+
+  border-radius: 14px;
+  border: none;
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+
+  box-shadow:
+    0 10px 30px rgba(34, 197, 94, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.auth-card .search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 16px 40px rgba(34, 197, 94, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  filter: brightness(1.05);
+}
+
+.auth-card .search-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 8px 20px rgba(34, 197, 94, 0.35),
+    inset 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.auth-card .link {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+}
+/* AUTH LINKS – POLISHED, APP-LIKE */
+
+.auth-card .auth-links {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.auth-card .auth-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.auth-card .auth-link:hover {
+  color: #22c55e;
+  transform: translateY(-1px);
+}
+
+/* Secondary emphasis for Create Account */
+.auth-card .auth-link.primary {
+  font-weight: 600;
+  color: #93c5fd;
+}
+
+.auth-card .auth-link.primary:hover {
+  color: #6366f1;
+}
+/* ===== PROFILE SETUP ===== */
+
+.profile-card {
+  text-align: center;
+}
+
+.profile-sub {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+
+.avatar-upload {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.avatar-upload img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.9);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+}
+
+.avatar-placeholder {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(255,255,255,0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar-placeholder span {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.avatar-placeholder small {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+.avatar-upload:hover .avatar-placeholder {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(99,102,241,0.4);
+}
+
+.search-btn.full {
+  width: 100%;
+  margin-top: 18px;
+}
+.form-error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 6px;
+  text-align: center;
+}
+.profile-card {
+  text-align: center;
+}
+
+.profile-sub {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.avatar-upload {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.avatar-upload span {
+  font-size: 36px;
+  opacity: 0.8;
+}
+
+.avatar-upload img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.route-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+}
+
+.route-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.route-leg {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  opacity: 0.85;
+}
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: rgba(30,30,30,0.9);
+  border-radius: 12px;
+  padding: 8px;
+  width: 160px;
+}
+
+.menu-item {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.1);
+}

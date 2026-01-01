@@ -1,59 +1,25 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function ProfileSetup({ onComplete }) {
-  const [bio, setBio] = useState("");
-  const [image, setImage] = useState(null);
+export default function ProfileBar({ user, logout }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
 
-  function handleImageUpload(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result);
-    reader.readAsDataURL(file);
-  }
-
-  function handleFinish() {
-    const profile = {
-      name: "Yogesh",
-      username: "yogi.ok2025",
-      bio,
-      profilePic: image
-    };
-
-    localStorage.setItem("userProfile", JSON.stringify(profile));
-    onComplete(profile);
-  }
+  useEffect(() => {
+    const close = (e) => !ref.current.contains(e.target) && setOpen(false);
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
 
   return (
-    <div className="profile-overlay">
-      <div className="profile-modal">
-        <h2>Set up your profile</h2>
+    <div className="profile-bar" ref={ref}>
+      <img src={user?.avatar || "https://via.placeholder.com/50"} onClick={() => setOpen(!open)} />
 
-        <label className="profile-upload">
-          {image ? (
-            <img src={image} alt="profile" />
-          ) : (
-            <span>+</span>
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={handleImageUpload}
-          />
-        </label>
-
-        <input
-          placeholder="Add a bio (optional)"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-
-        <button className="search-btn" onClick={handleFinish}>
-          Finish
-        </button>
-      </div>
+      {open && (
+        <div className="dropdown open">
+          <div className="menu-item">Edit Profile</div>
+          <div className="menu-item" onClick={logout}>Logout</div>
+        </div>
+      )}
     </div>
   );
 }
