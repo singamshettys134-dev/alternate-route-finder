@@ -7,22 +7,27 @@ import { getUser, saveUser, clearUser } from "./utils/auth";
 
 export default function App() {
   const [page, setPage] = useState("login");
-  const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(null);
 
   useEffect(() => {
     const stored = getUser();
-    if (stored) {
-      setUser(stored);
+    if (stored && stored.token) {
+      setAuth(stored);
       setPage("home");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (page === "login") {
     return (
       <Login
-        onLogin={(u) => {
-          saveUser(u);
-          setUser(u);
+        onLogin={(data) => {
+          const authData = {
+            ...data.user,
+            token: data.token,
+          };
+          saveUser(authData);
+          setAuth(authData);
           setPage("home");
         }}
         goSignup={() => setPage("signup")}
@@ -33,9 +38,13 @@ export default function App() {
   if (page === "signup") {
     return (
       <Signup
-        onSignup={(u) => {
-          saveUser(u);
-          setUser(u);
+        onSignup={(data) => {
+          const authData = {
+            ...data.user,
+            token: data.token,
+          };
+          saveUser(authData);
+          setAuth(authData);
           setPage("profile");
         }}
         back={() => setPage("login")}
@@ -46,22 +55,19 @@ export default function App() {
   if (page === "profile") {
     return (
       <ProfileSetup
-        user={user}
-        onFinish={(updatedUser) => {
-          saveUser(updatedUser);
-          setUser(updatedUser);
-          setPage("home");
-        }}
+        auth={auth}
+        onFinish={() => setPage("home")}
       />
     );
   }
 
   return (
     <Home
-      user={user}
+      auth={auth}
+      goProfile={() => setPage("profile")} // ✅ EDIT PROFILE NAVIGATION
       logout={() => {
         clearUser();
-        setUser(null);
+        setAuth(null);
         setPage("login");
       }}
     />

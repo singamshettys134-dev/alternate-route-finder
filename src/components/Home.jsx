@@ -1,60 +1,47 @@
 import { useState } from "react";
+import PlaceInput from "./PlaceInput";
 import ProfileBar from "./ProfileBar";
 
-export default function Home({ user, logout }) {
-  const [routes, setRoutes] = useState([]);
+export default function Home({ auth, logout }) {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [error, setError] = useState("");
 
   const search = () => {
-    setRoutes([
-      { via: "Chittoor", total: "16 hrs", legs: [
-        { from: "Bengaluru", to: "Chittoor", time: "5 hrs" },
-        { from: "Chittoor", to: "Hyderabad", time: "11 hrs" },
-      ]},
-      { via: "Tirupati", total: "18 hrs", legs: [
-        { from: "Bengaluru", to: "Tirupati", time: "6 hrs" },
-        { from: "Tirupati", to: "Anantapur", time: "12 hrs" },
-      ]}
-    ]);
+    if (!from || !to) {
+      setError("Please select source and destination");
+      return;
+    }
+    setError("");
   };
 
   return (
     <div className="app">
-      <ProfileBar user={user} logout={logout} />
+      <ProfileBar user={auth} logout={logout} />
 
-      <h1>Smart Journey Continuation System</h1>
-      <p className="subtitle">Fastest possible train routes when direct trains are unavailable</p>
+      <h1>Alternate Route Finder</h1>
+      <div className="subtitle">Welcome, {auth.firstName}</div>
 
       <div className="card search-card">
         <div className="search-bar">
-          <select>
-            <option>Current Location</option>
-            <option>Bengaluru</option>
-          </select>
-
-          <select>
-            <option>Select Destination</option>
-            <option>Hyderabad</option>
-          </select>
-
-          <button className="search-btn" onClick={search}>Search</button>
+          <PlaceInput
+            value={from}
+            onChange={setFrom}
+            placeholder="Source"
+          />
+          <PlaceInput
+            value={to}
+            onChange={setTo}
+            placeholder="Destination"
+            disabled={!from}
+          />
+          <button className="search-btn" onClick={search}>
+            Search Routes
+          </button>
         </div>
+
+        {error && <div className="form-error">{error}</div>}
       </div>
-
-      {routes.map((r, i) => (
-        <div key={i} className="route-card">
-          <div className="route-header">
-            Via {r.via}
-            <span>{r.total}</span>
-          </div>
-
-          {r.legs.map((l, j) => (
-            <div key={j} className="route-leg">
-              🚆 {l.from} → {l.to}
-              <span>{l.time}</span>
-            </div>
-          ))}
-        </div>
-      ))}
     </div>
   );
 }

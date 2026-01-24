@@ -735,3 +735,48 @@ h1 {
 .menu-item:hover {
   background: rgba(255,255,255,0.1);
 }
+/* ===========================================================
+   ADDITIVE SAFETY FIXES (NO OVERRIDES, NO VISUAL CHANGE)
+   =========================================================== */
+
+/* 1. Focus fallback for browsers without :focus-visible */
+button:focus,
+select:focus,
+input:focus {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+/* 2. Safari appearance fix */
+.search-bar select {
+  -webkit-appearance: none;
+}
+
+/* 3. Backdrop-filter fallback for unsupported browsers */
+@supports not (backdrop-filter: blur(1px)) {
+  .card,
+  .result-card,
+  .route,
+  .auth-card,
+  .modal-card,
+  .profile-modal,
+  .profile-bar .dropdown {
+    background: rgba(30, 30, 40, 0.85);
+  }
+}
+
+/* 4. Prevent hover shadow jump (base shadow safety) */
+.route {
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+/* 5. Button height safety (no override, fallback only) */
+.search-btn {
+  min-height: 48px;
+}
+
+/* 6. Keyboard navigation visibility */
+:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
